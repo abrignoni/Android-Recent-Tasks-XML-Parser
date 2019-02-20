@@ -3,6 +3,7 @@
 ![alt text](/usageData.PNG "Usage example")
 
 To view details on the script and accompanying SQL query see the blogpost here:  
+https://abrignoni.blogspot.com/2019/02/android-recent-tasks-xml-parser.html
 
 Usage:      
 1. Extract the Recent Tasks, Snapshot, and Recent_images directories.  
