@@ -92,7 +92,17 @@ for filename in glob.iglob(script_dir+r'\recent_tasks\**', recursive=True):
 					else:
 						recimg = 'NO IMAGE'
 				else:
-					recimg = 'NO IMAGE'
+					#check for other files not in the XML - all types
+					check3 = glob.glob(script_dir + '\\recent_images\\' + task_id + '*.*')
+					check3 = check3[0]
+					isit3 = os.path.isfile(check3)
+					if isit3:
+						recimg = check3
+						#print(recimg)
+					else:
+						recimg = 'NO IMAGE'
+				#else:
+				#	recimg = 'NO IMAGE'
 				#insert all items in database
 				cursor = db.cursor()
 				datainsert = (task_id, effective_uid, affinity, real_activity, first_active_time, last_active_time, last_time_moved, calling_package, user_id, action, component, snap, recimg, fullat1, fullat2,)
@@ -117,7 +127,7 @@ cursor = db.cursor()
 #Query to create report
 cursor.execute('''
 SELECT 
-	task_id as Tak_ID, 
+	task_id as Task_ID, 
 	effective_uid as Effective_UID, 
 	affinity as Affinity, 
 	real_activity as Real_Activity, 
@@ -169,7 +179,7 @@ for row in all_rows:
 			f1.write('</td>')
 			
 			f1.write('<td align="left">')
-			f1.write(row[x])
+			f1.write(str(row[x]))
 			f1.write('</td>')
 			f1.write('</tr>')
 			
@@ -182,7 +192,7 @@ for row in all_rows:
 					
 				
 				f1.write('<td align="left">')
-				f1.write('<img src="noimg.jpg" alt="Smiley face">')
+				f1.write('<img src="noimg.jpg" alt="no image">')
 				f1.write('</td>')
 				
 			else:
@@ -191,9 +201,9 @@ for row in all_rows:
 				#f1.write('<tr>')
 				f1.write('<td align="left">')
 				f1.write('<a href="')
-				f1.write(row[x])
+				f1.write(str(row[x]))
 				f1.write('"><img src="')
-				f1.write(row[x])
+				f1.write(str(row[x]))
 				f1.write('" alt="Smiley face">')
 				f1.write('</a>')
 				f1.write('</td>')
