@@ -117,28 +117,32 @@ cursor = db.cursor()
 #Query to create report
 cursor.execute('''
 SELECT 
-	task_id, 
-	effective_uid, 
-	affinity, 
-	real_activity, 
-	datetime(first_active_time/1000, 'UNIXEPOCH', 'LOCALTIME') as first_active_time, 
-	datetime(last_active_time/1000, 'UNIXEPOCH', 'LOCALTIME') as last_active_time,
-	datetime(last_time_moved/1000, 'UNIXEPOCH', 'LOCALTIME') as last_time_moved,
-	calling_package, 
-	user_id, 
-	action, 
-	component, 
+	task_id as Tak_ID, 
+	effective_uid as Effective_UID, 
+	affinity as Affinity, 
+	real_activity as Real_Activity, 
+	datetime(first_active_time/1000, 'UNIXEPOCH', 'LOCALTIME') as First_Active_Time, 
+	datetime(last_active_time/1000, 'UNIXEPOCH', 'LOCALTIME') as Last_Active_Time,
+	datetime(last_time_moved/1000, 'UNIXEPOCH', 'LOCALTIME') as Last_Time_Moved,
+	calling_package as Calling_Package, 
+	user_id as User_ID, 
+	action as Action, 
+	component as Component, 
 	snap as Snapshot_Image, 
-	recimg
+	recimg as Recent_Image
 FROM recent
 ''')
 all_rows = cursor.fetchall()
 colnames = cursor.description
 
 for row in all_rows:
-	appName = '<h3> Application: ' + row[2] + '<h3>'
+	if row[2] is None:
+		row2 = 'NO DATA'
+	else:
+		row2 = row[2]
+	appName = '<h3> Application: ' + row2 + '<h3>'
 	f1.write(appName)
-	f1.write('<table> <tr><th>Description</th><th>Values</th></tr>')
+	f1.write('<table> <tr><th>Key</th><th>Values</th></tr>')
 	
 	#do loop for headers
 	
