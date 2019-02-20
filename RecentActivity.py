@@ -94,8 +94,12 @@ for filename in glob.iglob(script_dir+r'\recent_tasks\**', recursive=True):
 				else:
 					#check for other files not in the XML - all types
 					check3 = glob.glob(script_dir + '\\recent_images\\' + task_id + '*.*')
-					check3 = check3[0]
-					isit3 = os.path.isfile(check3)
+					if check3:
+						check3 = check3[0]
+						isit3 = os.path.isfile(check3)
+					else:
+						isit3 = 0
+					
 					if isit3:
 						recimg = check3
 						#print(recimg)
